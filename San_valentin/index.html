@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi San Valentín?</title>
+    <style>
+        /* Estilos del cuerpo */
+        body {
+            background-color: #fce4ec; /* Color rosa claro */
+            background-image: url('images/dos\ osos\ san\ valentin.avif'), url('images/preview.jpg'); /* Dos imágenes */
+            background-size: 400px auto, cover; /* Tamaño de la imagen de los osos más pequeña, la segunda cubre todo */
+            background-position: center 120px, center; /* La imagen de los osos bajó más */
+            background-repeat: no-repeat, no-repeat; /* Evita repeticiones */
+            height: 100vh; /* Ocupa toda la pantalla */
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            text-align: center;
+            flex-direction: column; /* Elementos en columna */
+            font-family: Arial, sans-serif;
+            color: black; /* Cambié el color del texto a negro */
+        }
+
+        /* Estilo del título */
+        h1 {
+            font-size: 2.5rem;
+            color: black; /* Cambié el color del título a negro */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para mejor visibilidad */
+            margin-top: 180px; /* Ajuste para que el texto quede mejor alineado con la imagen */
+        }
+
+        /* Estilos de los botones */
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: black; /* Cambié el color del texto de los botones a negro */
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #siBtn {
+            background-color: #ff4081;
+        }
+
+        #noBtn {
+            background-color: #e91e63;
+        }
+
+        /* Contenedor de girasoles */
+        #girasoles {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .girasol {
+            width: 0; /* Inicialmente ocultos */
+            height: 100px;
+            margin: 0 5px;
+            overflow: hidden;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .girasol img {
+            height: 100%;
+            display: block;
+        }
+
+        /* Mensaje final */
+        #mensajeFinal {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            display: none;
+            color: black; /* Cambié el color del mensaje final a negro */
+        }
+
+        /* Estilo de la nueva imagen de fondo */
+        #nuevaImagen {
+            display: none; /* Inicialmente escondida */
+            width: 30%; /* Reducido al 30% del ancho de la pantalla */
+            height: auto; /* Mantener la relación de aspecto */
+            margin-top: 30px; /* Un pequeño margen hacia abajo */
+            object-fit: contain; /* Ajusta la imagen sin recortarla */
+        }
+
+        /* Estilo del mensaje final */
+        #mensajeFinal {
+            font-size: 24px;
+            color: black;
+            margin-top: 20px;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Reproductor de música (inicialmente oculto) -->
+    <audio id="musica" loop>
+        <source src="music/Beret Morat - Porfa No Te Vayas (Letra) [TubeRipper.com].mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <h1 id="titulo">¿Quieres ser mi San Valentín?</h1>
+    <button id="siBtn">Sí</button>
+    <button id="noBtn">No</button>
+
+    <p id="mensajeNo"></p>
+
+    <!-- Aquí es donde van los GIF de los girasoles -->
+    <div id="girasoles">
+        <div class="girasol"><img src="images/3mRG.gif" alt="Te Amo"></div>
+        <div class="girasol"><img src="images/8NI.gif" alt="Te Amo"></div>
+        <div class="girasol"><img src="images/DDw.gif" alt="Te Amo"></div>
+        <div class="girasol"><img src="images/r4b.gif" alt="Te Amo"></div>
+        <div class="girasol"><img src="images/4E4.gif" alt="Te Amo"></div>
+    </div>
+
+    <!-- Esta es la imagen nueva que se mostrará al hacer clic en "Sí" -->
+    <img id="nuevaImagen" src="images/DALL·E 2025-02-06 21.56.07 - A vibrant and beautiful sunflower in full bloom, with rich yellow petals and a deep brown center, set against a clear blue sky. The flower is surround.webp" alt="Imagen San Valentín">
+
+    <p id="mensajeFinal">¡Yo sabía que dirías que sí! ¡Te quiero mucho! Feliz San Valentín ❤️</p>
+
+    <script>
+        const siBtn = document.getElementById('siBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mensajeNo = document.getElementById('mensajeNo');
+        const girasoles = document.querySelectorAll('.girasol');
+        const mensajeFinal = document.getElementById('mensajeFinal');
+        const musica = document.getElementById('musica');
+        const nuevaImagen = document.getElementById('nuevaImagen');
+        const titulo = document.getElementById('titulo');  // Agregado para ocultar el título
+        let contadorNo = 0;
+
+        // Reproducir música cuando el usuario haga clic en el botón "Sí"
+        siBtn.addEventListener('click', () => {
+            musica.play();  // Inicia la música
+            mensajeFinal.style.display = 'block';
+            siBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            titulo.style.display = 'none';  // Oculta el título
+
+            // Mostrar la nueva imagen
+            nuevaImagen.style.display = 'block';
+
+            // Esconder los girasoles
+            girasoles.forEach(girasol => {
+                girasol.style.display = 'none';
+            });
+        });
+
+        noBtn.addEventListener('click', () => {
+            contadorNo++;
+            if (contadorNo === 1) {
+                mensajeNo.textContent = '¿Segura?';
+            } else if (contadorNo === 2) {
+                mensajeNo.textContent = 'No te vas a arrepentir...';
+            } else {
+                mensajeNo.textContent = 'Está bien...';
+                noBtn.style.display = 'none';
+                siBtn.style.display = 'block';
+                siBtn.style.fontSize = '24px';
+                siBtn.textContent = '¡Sí!';
+            }
+        });
+    </script>
+</body>
+</html>

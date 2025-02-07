@@ -1,0 +1,16 @@
+body {
+    background-image: url('https://www.solofondos.com/wp-content/uploads/2015/12/fondos-rosas-6.jpg'); /* Reemplázalo con tu imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+#nuevaImagen {
+    display: none; /* Inicialmente escondida */
+    width: 30%; /* Reducido al 30% del ancho de la pantalla */
+    height: auto; /* Mantener la relación de aspecto */
+    margin-top: -10px; /* Ajuste para mover la imagen hacia arriba */
+    object-fit: contain; /* Ajusta la imagen sin recortarla */
+}
+
